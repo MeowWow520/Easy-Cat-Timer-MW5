@@ -16,6 +16,7 @@ namespace CatTimer_WpfProject
         /* 设置相关 */
         private int volume;//音量
         private LanguageType language;//语言
+        private bool topmost;//窗口是否置顶
 
 
 
@@ -46,6 +47,19 @@ namespace CatTimer_WpfProject
                 PropertyChange("Language");//更新UI
             }
         }
+
+        /// <summary>
+        /// 窗口是否置顶？
+        /// </summary>
+        public bool Topmost
+        {
+            get { return topmost; }
+            set
+            {
+                topmost = value;
+                PropertyChange("Topmost");//更新UI
+            }
+        }
         #endregion
 
         #region 构造方法
@@ -53,6 +67,7 @@ namespace CatTimer_WpfProject
         {
             volume = 100;
             language = LanguageType.Chinese;
+            topmost = false;
         }
         #endregion 构造方法
 

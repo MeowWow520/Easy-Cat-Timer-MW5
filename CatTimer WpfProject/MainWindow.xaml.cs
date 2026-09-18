@@ -20,6 +20,10 @@ namespace CatTimer_WpfProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        //是否正在初始化[窗口置顶]的设置？
+        //（初始化时不要播放音效，否则程序一启动就会响一声）
+        private bool isTopmostInitializing = false;
+
 
         public MainWindow()
         {
@@ -35,7 +39,50 @@ namespace CatTimer_WpfProject
 
             //初始化
             AppManager.Start();
+
+            //恢复[窗口置顶]的设置
+            isTopmostInitializing = true;
+            TopmostToggleControl.IsChecked = AppManager.AppDatas.SettingData.Topmost;
+            isTopmostInitializing = false;
         }
+
+
+
+        #region 窗口置顶
+        /// <summary>
+        /// 当[窗口置顶]的开关被打开时
+        /// </summary>
+        private void TopmostToggleControl_OnChecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            SetTopmost(true);
+        }
+
+        /// <summary>
+        /// 当[窗口置顶]的开关被关闭时
+        /// </summary>
+        private void TopmostToggleControl_OnUnchecked(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            SetTopmost(false);
+        }
+
+
+        /// <summary>
+        /// 设置窗口是否置顶
+        /// </summary>
+        /// <param name="_isTopmost">是否置顶？</param>
+        private void SetTopmost(bool _isTopmost)
+        {
+            this.Topmost = _isTopmost;//让窗口置顶（或者取消置顶）
+
+            AppManager.AppDatas.SettingData.Topmost = _isTopmost;//保存到数据里（退出时会存档）
+
+            //如果是用户手动切换的，就播放音效
+            if (isTopmostInitializing == false)
+            {
+                AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
+            }
+        }
+        #endregion
 
 
 

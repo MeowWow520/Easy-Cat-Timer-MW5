@@ -90,6 +90,17 @@
                                              IconWidth="41" IconHeight="21"
                                              Padding="0,0,0,-5"/>
 
+
+                        <!--按钮：窗口置顶-->
+                        <!--（临时美术资源：暂时借用[上下箭头-上]的图标，
+                             等有了专用的[图钉]图标之后，把 Icon 换成它即可）-->
+                        <local:ToggleControl x:Name="TopmostToggleControl"
+                                             Width="24" Height="24" Margin="1"
+                                             Icon="{StaticResource UpDownButton.Up.ImageBrush}"
+                                             IconWidth="17" IconHeight="17"
+                                             Checked="TopmostToggleControl_OnChecked"
+                                             Unchecked="TopmostToggleControl_OnUnchecked"/>
+
                         <!--按钮：最小化-->
                         <local:ButtonControl x:Name="MinimumWindowButtonControl"
                                              ButtonStyle="{StaticResource ButtonStyle}"

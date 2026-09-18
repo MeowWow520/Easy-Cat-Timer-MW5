@@ -1,0 +1,222 @@
+# ==========================================================================
+#  Easy Cat Timer —— Git 忽略规则
+# --------------------------------------------------------------------------
+#  目标：仓库根目录下只保留以下内容被提交
+#      CatTimer WpfProject/                     （项目源码与资源）
+#      ReadMeImage/                             （README 图片）
+#      CatTimer WpfProject.sln                  （解决方案）
+#      CatTimer WpfProject.sln.DotSettings.user （需要保留的个人设置）
+#      README.md
+#      README[EN].md
+#
+#  说明：本文件本身以 "." 开头，属于隐藏文件，不占用上面这份可见清单。
+#        规则按“从上到下、最后匹配者生效”的顺序解析，
+#        因此末尾的“务必保留”段落优先级最高，请勿删除。
+# ==========================================================================
+
+
+# --------------------------------------------------------------------------
+#  1. 编译产物 / 构建输出（预测会生成的目录）
+# --------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+[Oo]ut/
+[Aa]rtifacts/
+*.baml
+*.g.cs
+*.g.i.cs
+*.g.resources
+*.cache
+*.tlog
+*.lastbuildstate
+*.FileListAbsolute.txt
+*.CoreCompileInputs.cache
+*.MarkupCompile.cache
+*.MarkupCompile.lref
+*.AssemblyReference.cache
+*.GenerateResource.cache
+*.exe
+*.dll
+*.pdb
+*.mdb
+*.ilk
+*.exp
+*.lib
+*.obj
+*.res
+*.resources
+*.manifest
+*.vshost.exe
+*.vshost.exe.manifest
+*.application
+*.xbap
+*.xap
+
+
+# --------------------------------------------------------------------------
+#  2. Visual Studio / MSBuild
+# --------------------------------------------------------------------------
+.vs/
+*.suo
+*.user
+*.rsuser
+*.userosscache
+*.sln.docstates
+*.sln.ide/
+*.userprefs
+*.builds
+*.VC.db
+*.VC.opendb
+*.opendb
+*.aps
+*.ncb
+*.sdf
+*.opensdf
+*.ipch
+*.psess
+*.vsp
+*.vspx
+*.svclog
+*.coverage
+*.coveragexml
+TestResults/
+[Tt]est[Rr]esult*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+UpgradeLog*.md
+*.log
+*.tmp
+*.bak
+*.cachefile
+msbuild.log
+publish/
+PublishProfiles/
+*.pubxml
+*.pubxml.user
+
+
+# --------------------------------------------------------------------------
+#  3. JetBrains Rider / ReSharper（.idea 目录为编辑器本地缓存）
+#     注意：*.DotSettings.user 不在本段忽略，见文件末尾“务必保留”段落
+# --------------------------------------------------------------------------
+.idea/
+**/.idea/
+*.iml
+_ReSharper*/
+_ReSharper.Caches/
+*.DotSettings.user.backup
+.idea/**/shelf/
+.idea/**/workspace.xml
+.idea/**/usage.statistics.xml
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.local.xml
+.idea/**/httpRequests/
+.idea/**/queries/
+
+
+# --------------------------------------------------------------------------
+#  4. NuGet / 包管理器
+# --------------------------------------------------------------------------
+packages/
+!packages/repositories.config
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+.nuget/
+project.lock.json
+project.assets.json
+*.props.tmp
+
+
+# --------------------------------------------------------------------------
+#  5. 安装包 / 发布压缩包（Release 打包时可能出现）
+# --------------------------------------------------------------------------
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.msi
+*.msm
+*.msp
+*.cab
+*.nupkg.bak
+!ReadMeImage/*.png
+
+
+# --------------------------------------------------------------------------
+#  6. 操作系统 / 编辑器产生的杂物
+# --------------------------------------------------------------------------
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+__MACOSX/
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+# 编辑器临时文件
+*~
+*.swp
+*.swo
+*.orig
+*.rej
+~$*
+*.autosave
+*.unityproj
+
+
+# --------------------------------------------------------------------------
+#  7. 文档 / 图表产出（按需求：本地生成，但不纳入版本控制）
+#     docx/ 下是每个类的说明文档（docx/<类名>.docx.md）与 draw.io 运行流程图
+#     temp/ 下是开发过程中的临时文件（构建日志、内存采样、测试脚本等）
+# --------------------------------------------------------------------------
+docx/
+temp/
+*.docx.lock
+~$*.docx
+*.vsdx.lock
+.drawio.svg
+.drawio.png
+*.drawio.bkp
+*.drawio.dtmp
+
+
+# --------------------------------------------------------------------------
+#  8. 运行期数据（Settings.settings 会写到用户 AppData，不在仓库内）
+# --------------------------------------------------------------------------
+*.sdf.bak
+*.ldf
+*.mdf
+user.config
+*.config.bak
+
+
+# ==========================================================================
+#  9. 已知例外（必须放在文件最后）
+#
+#  (1) CatTimer WpfProject.sln.DotSettings.user
+#      会被上面的 *.user 命中，因此必须在此处反向排除，强制提交。
+#
+#  (2) 以下两个文件虽然命中 *.user 与 ._* 规则，但它们是由原作者“絮酱酱”
+#      在首次提交 6c249a0（2019-06-19）中一并创建的既有仓库内容，
+#      并非本机新生成的产物，故保持其被跟踪状态，继续提交：
+#          CatTimer WpfProject/CatTimer WpfProject.csproj.user
+#          CatTimer WpfProject/Asset/Image/Text/Chinese/._Chinese.png
+#      （说明：二者已被 Git 跟踪，.gitignore 本就不会影响它们；
+#        这里显式反向排除，仅用于把“故意保留”这一意图写清楚。）
+#
+#     注意：不要在这里写 “!CatTimer WpfProject/**” 之类的大范围反向排除，
+#           否则会把 bin/ 与 obj/ 一起重新纳入版本控制。
+# ==========================================================================
+!CatTimer WpfProject.sln.DotSettings.user
+!CatTimer WpfProject/CatTimer WpfProject.csproj.user
+!CatTimer WpfProject/Asset/Image/Text/Chinese/._Chinese.png

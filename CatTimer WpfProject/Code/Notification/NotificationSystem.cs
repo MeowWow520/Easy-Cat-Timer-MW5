@@ -45,6 +45,10 @@ namespace CatTimer_WpfProject
             notificationWindow.topFrom = GetTopFrom();
             notificationWindow.horizontalSpacing = horizontalSpacing;
 
+            //如果主窗口是[置顶]的，那么通知窗口也要置顶
+            //（否则当主窗口挡在屏幕右下角时，通知窗口会被主窗口盖住）
+            notificationWindow.Topmost = AppManager.AppDatas.SettingData.Topmost;
+
             //把窗口添加到列表中
             notificationWindows.Add(notificationWindow);
 
