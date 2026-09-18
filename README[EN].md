@@ -121,6 +121,26 @@ Easy Cat Timer is a WPF application written in C# (.NET Framework) that runs on 
 1. Fix: When you press and hold the up arrow of "Second", the number of seconds will decrease——Thanks：UEMion
 2. Optimization: Redo the "volume" function (using the SoundPlayer class)——Thanks：amirrammari
 
+<br/>
+
+**v1.1.0.0（2026.09.18）：**
+
+1. New: Always on top. Click the [Topmost] toggle on the title bar to keep the window above all other windows. The setting is remembered after you exit.
+2. Optimization: when the main window is always on top, the notification window is always on top too.
+
+<br/>
+
+**v1.1.1.0（2026.09.18）：**
+
+1. New: Pomodoro. Tick [Pomodoro] in the settings panel to use the Pomodoro Technique.
+   (Defaults: 25 min work + 5 min short break + 15 min long break, a long break every 4 rounds. All four values can be adjusted on the Pomodoro screen.)
+2. New: when a stage ends, the next stage starts automatically. You can also press [Skip] on the title bar.
+   ([Auto start next stage] can be turned off in the settings panel; then you have to press [Start] yourself.)
+3. New: while a Pomodoro is running, the current stage (Work / Short break / Long break) and the round number are shown above the clock.
+4. Optimization: clicking the black cat (reset) now also resets the Pomodoro.
+
+<br/>
+
 
 
 
