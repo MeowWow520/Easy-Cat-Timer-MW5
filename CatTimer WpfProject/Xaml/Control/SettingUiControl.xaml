@@ -133,6 +133,30 @@
                 </StackPanel>
             </Grid>
 
+
+            <!--番茄钟模式 的开关-->
+            <!--（番茄钟是新加的功能，暂时没有美术图，所以先用文字显示）-->
+            <CheckBox Name="PomodoroCheckBox"
+                      Canvas.Left="28" Canvas.Top="104"
+                      Cursor="Hand"
+                      Checked="PomodoroCheckBox_OnChecked"
+                      Unchecked="PomodoroCheckBox_OnUnchecked">
+                <TextBlock Text="{DynamicResource Pomodoro.Title.Text}"
+                           Foreground="#FF656565" FontSize="14"
+                           FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"></TextBlock>
+            </CheckBox>
+
+            <!--番茄钟：一个阶段结束后，是否自动进入下一个阶段？-->
+            <CheckBox Name="PomodoroAutoStartCheckBox"
+                      Canvas.Left="28" Canvas.Top="124"
+                      Cursor="Hand"
+                      Checked="PomodoroAutoStartCheckBox_OnChecked"
+                      Unchecked="PomodoroAutoStartCheckBox_OnUnchecked">
+                <TextBlock Text="{DynamicResource Pomodoro.AutoStart.Text}"
+                           Foreground="#FF656565" FontSize="13"
+                           FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"></TextBlock>
+            </CheckBox>
+
         </Canvas>
 
 

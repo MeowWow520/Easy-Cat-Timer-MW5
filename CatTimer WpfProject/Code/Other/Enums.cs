@@ -35,4 +35,16 @@
         DefaultButtonUp,//普通按钮抬起
         AddOrlessNumberSoundPlayer//[增加或减少][分钟数或者秒钟数]的音效（设定时间的界面）
     }
+
+
+    /// <summary>
+    /// 番茄钟的阶段
+    /// </summary>
+    public enum PomodoroStage : byte
+    {
+        None,//没有开始
+        Work,//工作
+        ShortBreak,//短休息
+        LongBreak//长休息
+    }
 }

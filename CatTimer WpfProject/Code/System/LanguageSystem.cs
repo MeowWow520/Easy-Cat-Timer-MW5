@@ -40,6 +40,9 @@ namespace CatTimer_WpfProject
 
             //替换资源字典（替换App.xaml中的TextDictionary）
             AppManager.MainApp.Resources.MergedDictionaries[6] = _resourceDictionary;
+
+            //番茄钟界面上的文字是动态取的，换了语言之后要重新取一次
+            AppManager.AppSystems.PomodoroSystem.RefreshTexts();
         }
     }
 }

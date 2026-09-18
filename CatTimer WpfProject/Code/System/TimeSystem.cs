@@ -93,6 +93,12 @@ namespace CatTimer_WpfProject
 
                 //弹出通知
                 AppManager.AppSystems.NotificationSystem.ShowNotification();
+
+                //如果是[番茄钟]模式，就让番茄钟进入下一个阶段
+                if (AppManager.AppDatas.SettingData.PomodoroEnabled == true)
+                {
+                    AppManager.AppSystems.PomodoroSystem.OnStageFinished();
+                }
             }
             else
             {

@@ -18,6 +18,14 @@ namespace CatTimer_WpfProject
         private LanguageType language;//语言
         private bool topmost;//窗口是否置顶
 
+        /* 番茄钟相关 */
+        private bool pomodoroEnabled;//是否使用[番茄钟]模式？
+        private int pomodoroWorkMinutes;//[工作]的时长（单位：分钟）
+        private int pomodoroShortBreakMinutes;//[短休息]的时长（单位：分钟）
+        private int pomodoroLongBreakMinutes;//[长休息]的时长（单位：分钟）
+        private int pomodoroRoundsBeforeLongBreak;//每完成几轮[工作]，就[长休息]一次？
+        private bool pomodoroAutoStartNext;//一个阶段结束后，是否自动开始下一个阶段？
+
 
 
         #region 公开属性
@@ -60,6 +68,87 @@ namespace CatTimer_WpfProject
                 PropertyChange("Topmost");//更新UI
             }
         }
+
+
+        /// <summary>
+        /// 是否使用[番茄钟]模式？
+        /// （如果为false，就是原来那个简单的倒计时）
+        /// </summary>
+        public bool PomodoroEnabled
+        {
+            get { return pomodoroEnabled; }
+            set
+            {
+                pomodoroEnabled = value;
+                PropertyChange("PomodoroEnabled");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// [工作]的时长（单位：分钟）
+        /// </summary>
+        public int PomodoroWorkMinutes
+        {
+            get { return pomodoroWorkMinutes; }
+            set
+            {
+                pomodoroWorkMinutes = value;
+                PropertyChange("PomodoroWorkMinutes");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// [短休息]的时长（单位：分钟）
+        /// </summary>
+        public int PomodoroShortBreakMinutes
+        {
+            get { return pomodoroShortBreakMinutes; }
+            set
+            {
+                pomodoroShortBreakMinutes = value;
+                PropertyChange("PomodoroShortBreakMinutes");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// [长休息]的时长（单位：分钟）
+        /// </summary>
+        public int PomodoroLongBreakMinutes
+        {
+            get { return pomodoroLongBreakMinutes; }
+            set
+            {
+                pomodoroLongBreakMinutes = value;
+                PropertyChange("PomodoroLongBreakMinutes");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// 每完成几轮[工作]，就[长休息]一次？
+        /// </summary>
+        public int PomodoroRoundsBeforeLongBreak
+        {
+            get { return pomodoroRoundsBeforeLongBreak; }
+            set
+            {
+                pomodoroRoundsBeforeLongBreak = value;
+                PropertyChange("PomodoroRoundsBeforeLongBreak");//更新UI
+            }
+        }
+
+        /// <summary>
+        /// 一个阶段结束后，是否自动开始下一个阶段？
+        /// （如果为false，就要用户自己点[开始]）
+        /// </summary>
+        public bool PomodoroAutoStartNext
+        {
+            get { return pomodoroAutoStartNext; }
+            set
+            {
+                pomodoroAutoStartNext = value;
+                PropertyChange("PomodoroAutoStartNext");//更新UI
+            }
+        }
         #endregion
 
         #region 构造方法
@@ -68,6 +157,14 @@ namespace CatTimer_WpfProject
             volume = 100;
             language = LanguageType.Chinese;
             topmost = false;
+
+            /* 番茄钟的默认值：25分钟工作 + 5分钟短休息 + 15分钟长休息，每4轮长休息一次 */
+            pomodoroEnabled = false;
+            pomodoroWorkMinutes = 25;
+            pomodoroShortBreakMinutes = 5;
+            pomodoroLongBreakMinutes = 15;
+            pomodoroRoundsBeforeLongBreak = 4;
+            pomodoroAutoStartNext = true;
         }
         #endregion 构造方法
 

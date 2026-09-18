@@ -20,7 +20,9 @@ namespace CatTimer_WpfProject
     /// </summary>
     public partial class ClockControl : UserControl
     {
-        /* 属性: 时间(Time))*/
+        /* 属性: 时间(Time)
+                阶段的名字(StageText)  —— 番茄钟用
+                轮次(RoundText)        —— 番茄钟用 */
 
         public ClockControl()
         {
@@ -55,6 +57,41 @@ namespace CatTimer_WpfProject
         }
         #endregion
 
+
+        #region 依赖项属性：StageText（番茄钟：阶段的名字）
+        /// <summary>
+        /// 依赖项属性：阶段的名字（番茄钟用）
+        /// </summary>
+        public static DependencyProperty StageTextProperty;
+
+        /// <summary>
+        /// 公开属性：阶段的名字（番茄钟用）
+        /// </summary>
+        public string StageText
+        {
+            get { return (string)GetValue(StageTextProperty); }
+            set { SetValue(StageTextProperty, value); }
+        }
+        #endregion
+
+
+        #region 依赖项属性：RoundText（番茄钟：轮次）
+        /// <summary>
+        /// 依赖项属性：轮次（番茄钟用）
+        /// </summary>
+        public static DependencyProperty RoundTextProperty;
+
+        /// <summary>
+        /// 公开属性：轮次（番茄钟用）
+        /// </summary>
+        public string RoundText
+        {
+            get { return (string)GetValue(RoundTextProperty); }
+            set { SetValue(RoundTextProperty, value); }
+        }
+        #endregion
+
+
         #region 静态构造方法：注册依赖项属性 和 路由事件
         /// <summary>
         /// 静态构造方法：在里面注册依赖项属性 和 路由事件
@@ -73,6 +110,38 @@ namespace CatTimer_WpfProject
                     //当属性的值发生改变时，调用什么方法？
                     new PropertyChangedCallback(OnTimeChanged))
             );
+
+            //注册StageTextProperty（番茄钟：阶段的名字）
+            StageTextProperty = DependencyProperty.Register(
+                "StageText", typeof(string), typeof(ClockControl),
+                new FrameworkPropertyMetadata((string)"", new PropertyChangedCallback(OnPomodoroTextChanged))
+            );
+
+            //注册RoundTextProperty（番茄钟：轮次）
+            RoundTextProperty = DependencyProperty.Register(
+                "RoundText", typeof(string), typeof(ClockControl),
+                new FrameworkPropertyMetadata((string)"", new PropertyChangedCallback(OnPomodoroTextChanged))
+            );
+        }
+        #endregion
+
+
+        #region 私有方法
+        /// <summary>
+        /// 当[阶段的名字]或者[轮次]发生改变时，触发此方法
+        /// （如果两个都是空的，就把这一整块隐藏起来，让界面和原来一样）
+        /// </summary>
+        private static void OnPomodoroTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            ClockControl _clockControl = sender as ClockControl;
+            if (_clockControl == null) return;
+
+            bool _isShow = (string.IsNullOrEmpty(_clockControl.StageText) == false) ||
+                           (string.IsNullOrEmpty(_clockControl.RoundText) == false);
+
+            _clockControl.PomodoroTextPanel.Visibility = (_isShow == true)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
         #endregion
     }

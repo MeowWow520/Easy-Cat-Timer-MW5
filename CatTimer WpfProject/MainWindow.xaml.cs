@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Shell;
 
 namespace CatTimer_WpfProject
 {
@@ -44,6 +45,9 @@ namespace CatTimer_WpfProject
             isTopmostInitializing = true;
             TopmostToggleControl.IsChecked = AppManager.AppDatas.SettingData.Topmost;
             isTopmostInitializing = false;
+
+            //显示[设定界面]（普通倒计时 或者 番茄钟）
+            OpenSetupUi(true);
         }
 
 
@@ -81,6 +85,85 @@ namespace CatTimer_WpfProject
             {
                 AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
             }
+        }
+        #endregion
+
+
+
+        #region 番茄钟
+        /// <summary>
+        /// 当点击[跳过当前阶段]的按钮时
+        /// </summary>
+        private void SkipStageButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            //播放音效
+            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
+
+            //进入下一个阶段
+            AppManager.AppSystems.PomodoroSystem.SkipStage();
+        }
+
+
+        /// <summary>
+        /// 打开或者关闭[设定界面]
+        /// （普通倒计时 → 显示 TimingControl；番茄钟 → 显示 PomodoroControl）
+        /// </summary>
+        /// <param name="_isOpen">是否打开？</param>
+        public void OpenSetupUi(bool _isOpen)
+        {
+            if (_isOpen == true)
+            {
+                //根据当前的模式，显示对应的[设定界面]
+                bool _isPomodoro = AppManager.AppDatas.SettingData.PomodoroEnabled;
+
+                TimingUserControl.OpenOrClose(_isPomodoro == false);
+                PomodoroUserControl.OpenOrClose(_isPomodoro == true);
+            }
+            else
+            {
+                TimingUserControl.OpenOrClose(false);
+                PomodoroUserControl.OpenOrClose(false);
+            }
+
+            RefreshPomodoroUi();
+        }
+
+
+        /// <summary>
+        /// 刷新[番茄钟]相关的界面
+        /// </summary>
+        public void RefreshPomodoroUi()
+        {
+            bool _isPomodoro = AppManager.AppDatas.SettingData.PomodoroEnabled;
+            bool _isRunning = (AppManager.AppDatas.PomodoroData.CurrentStage != PomodoroStage.None);
+
+            //[跳过]按钮：只在[番茄钟模式 + 正在跑]的时候才显示
+            if (_isPomodoro == true && _isRunning == true)
+            {
+                SkipStageButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SkipStageButton.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        /// <summary>
+        /// 当[番茄钟模式]被打开或者关闭时，触发此方法
+        /// </summary>
+        public void OnPomodoroModeChanged()
+        {
+            //切换模式的时候，把倒计时停掉，并且把番茄钟复位
+            AppManager.AppSystems.TimeSystem.StopHandle();
+            AppManager.AppSystems.PomodoroSystem.ResetPomodoro();
+            AppManager.AppSystems.NotificationSystem.CloseAllNotification();
+
+            //任务栏进度条归零
+            AppManager.AppSystems.TaskbarSystem.SetProgressValueAndState(0, TaskbarItemProgressState.Paused);
+
+            //显示对应的[设定界面]
+            OpenSetupUi(true);
         }
         #endregion
 
@@ -129,6 +212,15 @@ namespace CatTimer_WpfProject
 
                 //开始计时
                 AppManager.MainWindow.TimingUserControl.StartTimer();
+            }
+            //如果[番茄钟]的设定界面是开启的，按回车也可以开始
+            else if (e.KeyStates == Keyboard.GetKeyStates(Key.Return) && AppManager.MainWindow.PomodoroUserControl.Visibility == Visibility.Visible)
+            {
+                //播放音效
+                AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
+
+                //开始一个番茄钟
+                AppManager.AppSystems.PomodoroSystem.StartOrContinue();
             }
         }
         #endregion

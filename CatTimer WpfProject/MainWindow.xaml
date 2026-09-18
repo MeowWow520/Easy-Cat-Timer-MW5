@@ -51,7 +51,9 @@
 
                 <!--时钟（Clock）-->
                 <local:ClockControl x:Name="ClockUserControl" Margin="15,0,17,0"
-                                    Time="{Binding TimeData.CurrentTime}"></local:ClockControl>
+                                    Time="{Binding TimeData.CurrentTime}"
+                                    StageText="{Binding PomodoroData.StageName}"
+                                    RoundText="{Binding PomodoroData.RoundText}"></local:ClockControl>
 
 
                 <!--暂停面板-->
@@ -64,8 +66,12 @@
                 <local:YellowCatControl x:Name="YellowCatUserControl"></local:YellowCatControl>
 
 
-                <!--定时界面-->
+                <!--定时界面（普通倒计时）-->
                 <local:TimingControl x:Name="TimingUserControl" Visibility="Visible"></local:TimingControl>
+
+
+                <!--番茄钟的设定界面-->
+                <local:PomodoroControl x:Name="PomodoroUserControl" Visibility="Collapsed"></local:PomodoroControl>
 
 
                 <!--设置界面-->
@@ -82,6 +88,19 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                                 Margin="0,0,17,0">
+
+                        <!--按钮：跳过当前阶段（只在番茄钟模式下显示）-->
+                        <!--（番茄钟是新加的功能，暂时没有美术图，所以先用文字显示）-->
+                        <Button x:Name="SkipStageButton"
+                                Style="{StaticResource NoBackgroundButtonStyle}"
+                                Width="52" Height="24" Margin="1"
+                                Visibility="Collapsed"
+                                Cursor="Hand"
+                                Click="SkipStageButton_OnClick">
+                            <TextBlock Text="{DynamicResource Pomodoro.Skip.Text}"
+                                       Foreground="#FF656565" FontSize="15"
+                                       FontFamily="{StaticResource MaybeCuteFontFamily.IncreaseSpacing}"></TextBlock>
+                        </Button>
 
                         <!--按钮：设置-->
                         <local:ToggleControl x:Name="SettingToggleControl"

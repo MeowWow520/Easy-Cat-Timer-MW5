@@ -1,6 +1,7 @@
 ﻿<!--中文的文字-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:local="clr-namespace:CatTimer_WpfProject">
 
     <!--绳子的按钮 的文字-->
@@ -34,5 +35,19 @@
     <!--通知界面 的文字-->
     <ImageBrush x:Key="Notification.Text.ImageBrush"
                 ImageSource="/CatTimer WpfProject;component/Asset/Image/Text/Chinese/Notification.png"></ImageBrush>
+
+
+    <!--番茄钟 的文字-->
+    <!--（番茄钟是新加的功能，暂时没有美术图，所以先用文字显示）-->
+    <sys:String x:Key="Pomodoro.Title.Text">番茄钟</sys:String>
+    <sys:String x:Key="Pomodoro.Stage.Work.Text">工作</sys:String>
+    <sys:String x:Key="Pomodoro.Stage.ShortBreak.Text">短休息</sys:String>
+    <sys:String x:Key="Pomodoro.Stage.LongBreak.Text">长休息</sys:String>
+    <sys:String x:Key="Pomodoro.Round.Format">第 {0} / {1} 轮</sys:String>
+    <sys:String x:Key="Pomodoro.Label.Rounds.Text">长休息间隔</sys:String>
+    <sys:String x:Key="Pomodoro.Label.Minute.Text">分钟</sys:String>
+    <sys:String x:Key="Pomodoro.Label.RoundsUnit.Text">轮</sys:String>
+    <sys:String x:Key="Pomodoro.Skip.Text">跳过</sys:String>
+    <sys:String x:Key="Pomodoro.AutoStart.Text">自动进入下一阶段</sys:String>
 
 </ResourceDictionary>

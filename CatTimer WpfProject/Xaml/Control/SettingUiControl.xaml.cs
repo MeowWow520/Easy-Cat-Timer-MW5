@@ -25,6 +25,10 @@ namespace CatTimer_WpfProject
                 是否有声音？(IsHaveVoice)
                 语言(Language)*/
 
+        //是否正在初始化[番茄钟模式]的开关？
+        //（初始化的时候不要触发"切换模式"的逻辑，否则一打开设置界面就会重置一次番茄钟）
+        private bool isInitializingPomodoroCheckBox = false;
+
 
 
         public SettingUiControl()
@@ -50,6 +54,12 @@ namespace CatTimer_WpfProject
             //做一些处理
             _settingUiControl.LanguageToggleControl.IsChecked = false;//关闭语言组
             SetLanguageImage(AppManager.AppDatas.SettingData.Language);//设置语言的图片
+
+            //同步一下[番茄钟模式]的开关
+            isInitializingPomodoroCheckBox = true;
+            _settingUiControl.PomodoroCheckBox.IsChecked = AppManager.AppDatas.SettingData.PomodoroEnabled;
+            _settingUiControl.PomodoroAutoStartCheckBox.IsChecked = AppManager.AppDatas.SettingData.PomodoroAutoStartNext;
+            isInitializingPomodoroCheckBox = false;
         }
 
 
@@ -67,6 +77,41 @@ namespace CatTimer_WpfProject
             /*做一些处理*/
             this.LanguageToggleControl.IsChecked = false;//关闭语言组
             SetLanguageImage(LanguageType.English);//设置语言的图片
+        }
+
+
+
+        //当[番茄钟模式]的开关被打开时，触发此方法
+        private void PomodoroCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (isInitializingPomodoroCheckBox == true) return;
+
+            SetPomodoroEnabled(true);
+        }
+
+        //当[番茄钟模式]的开关被关闭时，触发此方法
+        private void PomodoroCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            if (isInitializingPomodoroCheckBox == true) return;
+
+            SetPomodoroEnabled(false);
+        }
+
+
+        //当[自动进入下一阶段]的开关被打开时，触发此方法
+        private void PomodoroAutoStartCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (isInitializingPomodoroCheckBox == true) return;
+
+            SetPomodoroAutoStartNext(true);
+        }
+
+        //当[自动进入下一阶段]的开关被关闭时，触发此方法
+        private void PomodoroAutoStartCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            if (isInitializingPomodoroCheckBox == true) return;
+
+            SetPomodoroAutoStartNext(false);
         }
 
 
@@ -184,6 +229,34 @@ namespace CatTimer_WpfProject
             this.StaffPopup.IsOpen = _isOpen; //关闭Popup控件
         }
 
+
+        /// <summary>
+        /// 设置[番茄钟模式]的开关
+        /// </summary>
+        /// <param name="_isEnabled">是否使用番茄钟？</param>
+        private void SetPomodoroEnabled(bool _isEnabled)
+        {
+            AppManager.AppDatas.SettingData.PomodoroEnabled = _isEnabled;
+
+            //播放音效
+            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
+
+            //刷新界面（切换设定界面 + 重置番茄钟）
+            AppManager.MainWindow.OnPomodoroModeChanged();
+        }
+
+
+        /// <summary>
+        /// 设置[一个阶段结束后，是否自动进入下一个阶段]
+        /// </summary>
+        /// <param name="_isAutoStartNext">是否自动进入下一阶段？</param>
+        private void SetPomodoroAutoStartNext(bool _isAutoStartNext)
+        {
+            AppManager.AppDatas.SettingData.PomodoroAutoStartNext = _isAutoStartNext;
+
+            //播放音效
+            AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.DefaultButtonUp);
+        }
         #endregion
 
 

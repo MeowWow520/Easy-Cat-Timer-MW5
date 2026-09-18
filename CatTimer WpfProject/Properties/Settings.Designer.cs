@@ -58,5 +58,77 @@ namespace CatTimer_WpfProject.Properties {
                 this["Topmost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PomodoroEnabled {
+            get {
+                return ((bool)(this["PomodoroEnabled"]));
+            }
+            set {
+                this["PomodoroEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int PomodoroWorkMinutes {
+            get {
+                return ((int)(this["PomodoroWorkMinutes"]));
+            }
+            set {
+                this["PomodoroWorkMinutes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int PomodoroShortBreakMinutes {
+            get {
+                return ((int)(this["PomodoroShortBreakMinutes"]));
+            }
+            set {
+                this["PomodoroShortBreakMinutes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int PomodoroLongBreakMinutes {
+            get {
+                return ((int)(this["PomodoroLongBreakMinutes"]));
+            }
+            set {
+                this["PomodoroLongBreakMinutes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int PomodoroRoundsBeforeLongBreak {
+            get {
+                return ((int)(this["PomodoroRoundsBeforeLongBreak"]));
+            }
+            set {
+                this["PomodoroRoundsBeforeLongBreak"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PomodoroAutoStartNext {
+            get {
+                return ((bool)(this["PomodoroAutoStartNext"]));
+            }
+            set {
+                this["PomodoroAutoStartNext"] = value;
+            }
+        }
     }
 }

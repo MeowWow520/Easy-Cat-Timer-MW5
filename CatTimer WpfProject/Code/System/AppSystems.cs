@@ -13,6 +13,7 @@ namespace CatTimer_WpfProject
     {
         private LanguageSystem languageSystem;//语言
         private TimeSystem timeSystem;//时间
+        private PomodoroSystem pomodoroSystem;//番茄钟
         private NotificationSystem notificationSystem;//通知
         private AudioSystem audioSystem;//音效
         private SaveSystem saveSystem;//保存和读取
@@ -33,6 +34,14 @@ namespace CatTimer_WpfProject
         public TimeSystem TimeSystem
         {
             get { return timeSystem; }
+        }
+
+        /// <summary>
+        /// 番茄钟的系统
+        /// </summary>
+        public PomodoroSystem PomodoroSystem
+        {
+            get { return pomodoroSystem; }
         }
 
         /// <summary>
@@ -73,6 +82,7 @@ namespace CatTimer_WpfProject
         {
             languageSystem = new LanguageSystem();
             timeSystem = new TimeSystem();
+            pomodoroSystem = new PomodoroSystem();
             notificationSystem = new NotificationSystem();
             audioSystem = new AudioSystem();
             saveSystem = new SaveSystem();

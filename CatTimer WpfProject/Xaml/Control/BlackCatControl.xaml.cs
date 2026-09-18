@@ -34,7 +34,15 @@ namespace CatTimer_WpfProject
         {
             /* 停止计时，返回到设置时间的界面 */
             AppManager.AppSystems.TimeSystem.StopHandle();
-            AppManager.MainWindow.TimingUserControl.OpenOrClose(true);
+
+            /* 如果是[番茄钟]模式，就把番茄钟也复位 */
+            if (AppManager.AppDatas.SettingData.PomodoroEnabled == true)
+            {
+                AppManager.AppSystems.PomodoroSystem.ResetPomodoro();
+            }
+
+            /* 显示[设定界面]（普通倒计时 或者 番茄钟） */
+            AppManager.MainWindow.OpenSetupUi(true);
 
             /* 把黄猫咪的按钮，设置为暂停按钮 */
             AppManager.MainWindow.YellowCatUserControl.IsPauseButton = true;
@@ -65,7 +73,8 @@ namespace CatTimer_WpfProject
         private void CatGrid_OnMouseLeave(object sender, MouseEventArgs e)
         {
             //播放音效
-            if (AppManager.MainWindow.TimingUserControl.Visibility != Visibility.Visible)
+            if (AppManager.MainWindow.TimingUserControl.Visibility != Visibility.Visible &&
+                AppManager.MainWindow.PomodoroUserControl.Visibility != Visibility.Visible)
             {
                 AppManager.AppSystems.AudioSystem.PlayAudio(AudioType.CatDown);
             }

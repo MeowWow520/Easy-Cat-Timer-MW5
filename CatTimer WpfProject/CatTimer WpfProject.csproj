@@ -84,6 +84,7 @@
     <Compile Include="Code\Data\SettingData.cs" />
     <Compile Include="Code\Data\StateData.cs" />
     <Compile Include="Code\Data\TimeData.cs" />
+    <Compile Include="Code\Data\PomodoroData.cs" />
     <Compile Include="Code\Notification\NotificationSystem.cs" />
     <Compile Include="Code\Other\Enums.cs" />
     <Compile Include="Code\Other\Tools.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Code\System\SaveSystem.cs" />
     <Compile Include="Code\System\TaskbarSystem.cs" />
     <Compile Include="Code\System\TimeSystem.cs" />
+    <Compile Include="Code\System\PomodoroSystem.cs" />
     <Compile Include="Xaml\Control\BlackCatControl.xaml.cs">
       <DependentUpon>BlackCatControl.xaml</DependentUpon>
     </Compile>
@@ -114,6 +116,9 @@
     </Compile>
     <Compile Include="Xaml\Control\TimingControl.xaml.cs">
       <DependentUpon>TimingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Xaml\Control\PomodoroControl.xaml.cs">
+      <DependentUpon>PomodoroControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Xaml\Control\ToggleControl.xaml.cs">
       <DependentUpon>ToggleControl.xaml</DependentUpon>
@@ -145,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Xaml\Control\TimingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\Control\PomodoroControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
